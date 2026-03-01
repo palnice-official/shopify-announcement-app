@@ -2,12 +2,11 @@
 
 client_id = "dab3f554a02708ecb6bd0a40afffcc3b"
 name = "announcement-app"
-application_url = "https://example.com"
+application_url = "https://shopify-announcement-app-1.onrender.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
-include_config_on_deploy = true
 
 [webhooks]
 api_version = "2026-04"
@@ -22,10 +21,10 @@ api_version = "2026-04"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_metafields,write_metaobject_definitions,write_metaobjects,write_products"
+scopes = "write_metafields,read_metafields,write_metaobject_definitions,write_metaobjects,write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://shopify-announcement-app-1.onrender.com/api/auth" ]
 
 [product.metafields.app.demo_info]
 type = "single_line_text_field"
