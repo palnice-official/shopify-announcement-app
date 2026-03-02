@@ -29,29 +29,27 @@ export default function Index() {
     <s-page heading="Announcement Manager">
       <s-section heading="Create Announcement">
         <s-paragraph>
-          Type your announcement below. It will be saved to the database
-          and displayed as a banner on your storefront.
+          Type your announcement below. It will be saved to the database and
+          displayed as a banner on your storefront.
         </s-paragraph>
 
         <s-stack direction="block" gap="base">
-          <s-text-field
-            label="Announcement Text"
+          <input
+            type="text"
             value={text}
-            onInput={(e) => {
-              console.log("Input event:", e.target.value);
-              setText(e.target.value);
-            }}
-            onChange={(e) => {
-              console.log("Change event:", e.target.value);
-              setText(e.target.value);
-            }}
+            onChange={(e) => setText(e.target.value)}
             placeholder="e.g. Sale 50% Off this weekend!"
+            style={{
+              width: "100%",
+              padding: "8px 12px",
+              fontSize: "16px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+            }}
           />
 
           {fetcher.data?.error && (
-            <s-banner tone="critical">
-              {fetcher.data.error}
-            </s-banner>
+            <s-banner tone="critical">{fetcher.data.error}</s-banner>
           )}
 
           <s-button
