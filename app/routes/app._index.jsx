@@ -87,12 +87,27 @@ export const action = async ({ request }) => {
 
     const responseJson = await response.json();
     console.log("Metafield response:", JSON.stringify(responseJson, null, 2));
+    console.log("Metafield URL was:", response.url);
+    console.log("Metafield status:", response.status);
+
+    if (!responseJson.data) {
+      console.error("NO DATA IN RESPONSE:", responseJson);
+      return { success: false, error: `GraphQL Error: ${JSON.stringify(responseJson.errors)}` };
+    }
 
     const userErrors = responseJson.data?.metafieldsSet?.userErrors;
     if (userErrors && userErrors.length > 0) {
       console.error("Shopify metafield error:", userErrors);
       return { success: false, error: userErrors[0].message };
     }
+
+    const savedMetafields = responseJson.data?.metafieldsSet?.metafields;
+    if (!savedMetafields || savedMetafields.length === 0) {
+      console.error("No metafields returned from mutation");
+      return { success: false, error: "Metafield was not saved" };
+    }
+
+    console.log("Metafield successfully saved:", savedMetafields[0]);
 
     return { success: true, message: "Announcement saved successfully!" };
   } catch (error) {

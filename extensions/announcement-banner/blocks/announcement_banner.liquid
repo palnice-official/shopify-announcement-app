@@ -1,6 +1,10 @@
 <div
   id="announcement-banner"
   style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     background-color: #FFEB3B;
     color: #000000;
     text-align: center;
@@ -8,10 +12,22 @@
     font-size: 16px;
     font-weight: 500;
     width: 100%;
+    z-index: 9999;
+    box-sizing: border-box;
   "
 >
-  {{ shop.metafields.my_app.announcement.value }}
+  {% if shop.metafields.my_app.announcement %}
+    {{ shop.metafields.my_app.announcement.value }}
+  {% else %}
+    <!-- Debugging: No announcement metafield found -->
+  {% endif %}
 </div>
+
+<style>
+  body {
+    padding-top: 50px;
+  }
+</style>
 
 {% schema %}
 {
