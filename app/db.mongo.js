@@ -14,11 +14,15 @@ if (!cached) {
 
 async function connectDB() {
     if (cached.conn) {
+        console.log("Using cached MongoDB connection");
         return cached.conn;
     }
     if (!cached.promise) {
+        console.log("Creating new MongoDB connection with URI:", MONGODB_URI);
         cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => {
             console.log("✅ MongoDB connected successfully");
+            const dbName = mongoose.connection.name;
+            console.log("Connected to database:", dbName);
             return mongoose;
         });
     }

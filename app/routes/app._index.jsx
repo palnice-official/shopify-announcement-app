@@ -35,11 +35,20 @@ export const action = async ({ request }) => {
 
   try {
     // 1. Save to MongoDB
+    console.log("Connecting to MongoDB...");
     await connectDB();
-    await Announcement.create({
-      text: text.trim(),
-      shop: session.shop,
-    });
+    console.log("MongoDB connected, creating announcement...");
+
+    try {
+      const savedAnnouncement = await Announcement.create({
+        text: text.trim(),
+        shop: session.shop,
+      });
+      console.log("✅ Announcement saved successfully:", savedAnnouncement._id);
+    } catch(mongoError) {
+      console.error("❌ MongoDB save failed:", mongoError.message);
+      throw mongoError;
+    }
 
     // 2. First get real Shop GID
     const shopResponse = await admin.graphql(`
